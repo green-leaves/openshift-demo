@@ -1,5 +1,8 @@
 package com.greenleaves.openshift;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +17,7 @@ public class HelloApplication {
 }
 
 @RestController
+@Slf4j
 class HelloController {
     @Value("${greeting.message}")
     private String message;
@@ -23,7 +27,7 @@ class HelloController {
 
 	@GetMapping("/")
 	public String get() {
-		System.out.println(test);
+        log.info(test);
 		return "Hello, " + message;
 	}
 }

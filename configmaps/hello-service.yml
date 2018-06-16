@@ -6,4 +6,4 @@ data:
   application.yaml: |-
     greeting:
       message: I am from OpenShift config map
-      test: test Message
+      test: I am a simple test message
