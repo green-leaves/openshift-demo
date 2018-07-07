@@ -9,9 +9,15 @@
     <artifactId>hello-service</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>io.opentracing.contrib</groupId>
+            <artifactId>opentracing-spring-jaeger-web-starter</artifactId>
+            <version>0.1.5</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>hello-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

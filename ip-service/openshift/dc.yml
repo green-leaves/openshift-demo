@@ -1,0 +1,44 @@
+---
+apiVersion: "v1"
+kind: "DeploymentConfig"
+metadata:
+  name: "ip-service"
+  version: "1"
+spec:
+  replicas: 1
+  selector:
+    app: "ip-service"
+  strategy:
+    rollingParams:
+      timeoutSeconds: 10800
+    type: "Rolling"
+  template:
+    metadata:
+      labels:
+        app: "ip-service"
+    spec:
+      containers:
+      - image: "172.30.1.1:5000/myproject/ip-service:latest"
+        imagePullPolicy: "Always"
+        name: "ip-service-4"
+        ports:
+        - containerPort: 8080
+          name: "http"
+          protocol: "TCP"
+        securityContext:
+          privileged: false
+      - image: jaegertracing/jaeger-agent
+        name: jaeger-agent
+        ports:
+        - containerPort: 5775
+          protocol: UDP
+        - containerPort: 5778
+        - containerPort: 6831
+          protocol: UDP
+        - containerPort: 6832
+          protocol: UDP
+        command:
+        - "/go/bin/agent-linux"
+        - "--collector.host-port=jaeger-collector:14267"
+  triggers:
+  - type: "ConfigChange"
