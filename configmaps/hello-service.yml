@@ -5,5 +5,5 @@ metadata:
 data:
   application.yaml: |-
     greeting:
-      message: I am from OpenShift config map
-      test: I am a simple test message
+      message: I am updated really?
+      test: I am really not a simple log

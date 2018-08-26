@@ -27,6 +27,8 @@ spec:
           protocol: "TCP"
         securityContext:
           privileged: false
+        command: ["/bin/sh", "-c"]
+        args: ["cd /app; java -jar hello-service.jar"]
       - image: jaegertracing/jaeger-agent
         name: jaeger-agent
         ports:
