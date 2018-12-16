@@ -5,22 +5,23 @@ metadata:
   name: "hello-service"
   version: "1"
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     app: "hello-service"
   strategy:
     rollingParams:
-      timeoutSeconds: 10800
+      timeoutSeconds: 1080
     type: "Rolling"
   template:
     metadata:
       labels:
+        group: 'demo'
         app: "hello-service"
     spec:
       containers:
       - image: "172.30.1.1:5000/myproject/hello-service:latest"
         imagePullPolicy: "Always"
-        name: "hello-service-3"
+        name: "hello-service-4"
         ports:
         - containerPort: 8080
           name: "http"
