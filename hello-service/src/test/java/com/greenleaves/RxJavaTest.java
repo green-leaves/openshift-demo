@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import static java.lang.Thread.sleep;
@@ -156,22 +157,27 @@ public class RxJavaTest {
 
         executorService.execute(oddThread);
         executorService.execute(evenThread);
+        BiFunction<Integer, Integer, String> formatFunction = (x, y) -> String.format("%s . %s", x, y);
 
 
 //        evenStream
-//                .zipWith(oddStream, (odd, even) -> String.format("%s . %s", odd, even))
+//                .zipWith(oddStream, formatFunction::apply
 //                .subscribe(System.out::println);
 
 //        evenStream
-//                .withLatestFrom(oddStream, (odd, even) -> String.format("%s . %s", odd, even))
+//                .withLatestFrom(oddStream, formatFunction::apply)
 //                .subscribe(System.out::println);
 
         Observable
-                .combineLatest(evenStream, oddStream, (even, odd) -> String.format("%s . %s", even, odd))
+                .combineLatest(evenStream, oddStream, formatFunction::apply)
                 .throttleLast(1, TimeUnit.SECONDS)
                 .subscribe(s -> System.out.println(String.format("%s: %s", LocalTime.now(), s)));
 
         Thread.sleep(30000);
+    }
+
+    static BiFunction<Integer, Integer, String> format() {
+        return (x, y) -> String.format("%s . %s", x, y);
     }
 
 }
