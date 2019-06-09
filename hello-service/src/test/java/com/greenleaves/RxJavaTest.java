@@ -159,9 +159,8 @@ public class RxJavaTest {
         executorService.execute(evenThread);
         BiFunction<Integer, Integer, String> formatFunction = (x, y) -> String.format("%s . %s", x, y);
 
-
 //        evenStream
-//                .zipWith(oddStream, formatFunction::apply
+//                .zipWith(oddStream, formatFunction::apply)
 //                .subscribe(System.out::println);
 
 //        evenStream
